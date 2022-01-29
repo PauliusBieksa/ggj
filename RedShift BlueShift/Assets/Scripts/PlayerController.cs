@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleSpeed(InputAction.CallbackContext context)
     {
-        if (!context.started && context.action.name != "SpeedToggle") return;
+        if (!context.performed && context.action.name != "SpeedToggle") return;
 
         //check if penalised
         if (Time.time - collisionTime >= 2 && PlayerSpeed == SpeedClass.Penalty)
