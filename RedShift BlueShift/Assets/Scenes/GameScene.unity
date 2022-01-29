@@ -601,6 +601,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_asteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 5565172047950421620, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
 --- !u!224 &1081218681 stripped
@@ -711,6 +715,10 @@ PrefabInstance:
     - target: {fileID: 4728200742582110091, guid: 398c5b5df0bdd244d86e4a0fd0f09ce7, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728200742582110094, guid: 398c5b5df0bdd244d86e4a0fd0f09ce7, type: 3}
+      propertyPath: CollisionCooldownTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4728200742582110095, guid: 398c5b5df0bdd244d86e4a0fd0f09ce7, type: 3}
       propertyPath: m_RootOrder

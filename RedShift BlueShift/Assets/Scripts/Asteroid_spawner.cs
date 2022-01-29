@@ -50,7 +50,7 @@ public class Asteroid_spawner : MonoBehaviour
         {
             if (Vector3.Dot(point - dead_zones[i][0], dead_zones[i][1] - dead_zones[i][0]) < 0 || Vector3.Dot(point - dead_zones[i][1], dead_zones[i][0] - dead_zones[i][1]) < 0)
                 continue;
-            float angle = Vector3.Dot(point - dead_zones[i][0], dead_zones[i][1] - dead_zones[i][0]) 
+            float angle = Vector3.Dot(point - dead_zones[i][0], dead_zones[i][1] - dead_zones[i][0])
                 / ((point - dead_zones[i][0]).magnitude * (dead_zones[i][1] - dead_zones[i][0]).magnitude);
             float projection_length = (point - dead_zones[i][0]).magnitude * angle;
             float dist = Mathf.Sqrt((point - dead_zones[i][0]).sqrMagnitude - projection_length * projection_length);
@@ -118,7 +118,7 @@ public class Asteroid_spawner : MonoBehaviour
                 placement_matrix[cell_x][cell_y][cell_z] = true;
             }
             Vector3 placing_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
-            
+
             blue_asteroids.Add(Instantiate(blue_asteroid_prefab, placing_pos, Quaternion.identity));
         }
     }

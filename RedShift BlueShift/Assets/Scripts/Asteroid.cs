@@ -30,8 +30,11 @@ public class Asteroid : MonoBehaviour
         transform.Rotate(axisOfRotation);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.name.ToLower().Contains("asteroid"))
+            return;
+
         CrashEffect();
     }
 
