@@ -42,7 +42,11 @@ public class Asteroid : MonoBehaviour
         StartCoroutine("Shrink");
         rb.isKinematic = true;
         particles.Play();
-        audioSource.Play();
+        audioSource.Play(0);
+        if (audioSource == null)
+        {
+            print("die");
+        }
     }
 
     public void Reset()
