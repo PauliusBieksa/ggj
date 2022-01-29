@@ -9,26 +9,30 @@ public class Asteroid_spawner : MonoBehaviour
     [SerializeField]
     GameObject red_asteroid_prefab;
     [SerializeField]
-    float spawn_offset;
+    float spawn_offset = 15;
     [SerializeField]
-    float spawn_range;
+    float spawn_range = 75;
     [SerializeField]
     Transform player_transform;
 
     [SerializeField]
-    int num_of_dead_zones = 2;
+    int num_of_dead_zones = 5;
     [SerializeField]
-    float min_length_of_dead_zone;
+    float min_length_of_dead_zone = 10;
     [SerializeField]
-    float max_length_of_dead_zone;
+    float max_length_of_dead_zone = 75;
     [SerializeField]
-    float radius_of_dead_zone = 4;
+    float radius_of_dead_zone = 6;
+
     List<GameObject> blue_asteroids;
+    List<GameObject> red_asteroids;
 
     [SerializeField]
     private int cell_density = 50;
     [SerializeField]
-    private int num_of_asteroids = 1000;
+    private int num_of_blue_asteroids = 1000;
+    [SerializeField]
+    private int num_of_red_asteroids = 200;
 
     float screenspace_x, screenspace_y;
 
@@ -61,6 +65,11 @@ public class Asteroid_spawner : MonoBehaviour
         return false;
     }
 
+    //bool is_out_of_bounds(Vector3 point)
+    //{
+    //    if (player_transform.position)
+    //}
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +77,7 @@ public class Asteroid_spawner : MonoBehaviour
         screenspace_x = screenspace_y * Screen.width / Screen.height;
 
         blue_asteroids = new List<GameObject>();
+        red_asteroids = new List<GameObject>();
 
         // init placemet matrix
         List<bool> placement_matrix_row = new List<bool>();
@@ -93,8 +103,8 @@ public class Asteroid_spawner : MonoBehaviour
         }
 
         int abs = 0;
-        // spawn asteroids
-        for (int i = 0; i < num_of_asteroids; i++)
+        // spawn blue asteroids
+        for (int i = 0; i < num_of_blue_asteroids; i++)
         {
             float xy_range = Mathf.Tan(0.55f) * spawn_range;
             Vector3 offset_point = random_point_in_view();
@@ -123,7 +133,15 @@ public class Asteroid_spawner : MonoBehaviour
             }
             Vector3 placing_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
 
-            blue_asteroids.Add(Instantiate(blue_asteroid_prefab, placing_pos, Quaternion.identity));
+            blue_asteroids.Add(Instantiate(blue_asteroid_prefab, placing_pos, Random.rotation));
+        }
+
+        // spawn red asteroids
+        for (int i = 0; i < num_of_red_asteroids; i++)
+        {
+            Vector3 offset_point = random_point_in_view();
+            Vector3 placing_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
+            red_asteroids.Add(Instantiate(red_asteroid_prefab, placing_pos, Random.rotation));
         }
     }
 

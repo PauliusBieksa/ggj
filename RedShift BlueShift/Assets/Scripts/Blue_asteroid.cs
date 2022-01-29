@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Asteroid : MonoBehaviour
+public class Blue_asteroid : MonoBehaviour
 {
     private Vector3 axisOfRotation;
     private Vector3 originalSize;
     private Rigidbody rb;
     private ParticleSystem particles;
     private AudioSource audioSource;
-
 
     // Start is called before the first frame update
     void Start()
