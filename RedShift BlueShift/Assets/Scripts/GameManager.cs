@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
-
     private PlayerInputActions playerInputActions;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -19,14 +20,14 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    private  void LoadGame(InputAction.CallbackContext context)
+    private void LoadGame(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene("GameScene");
+        if (SceneManager.GetActiveScene().name != "GameScene")
+            SceneManager.LoadScene("GameScene");
     }
 
     public void Quit(InputAction.CallbackContext context)
     {
         Application.Quit();
     }
-
 }
