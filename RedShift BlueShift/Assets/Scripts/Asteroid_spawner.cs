@@ -86,9 +86,6 @@ public class Asteroid_spawner : MonoBehaviour
             end_point = start_point + direction * (Random.Range(min_length_of_dead_zone, max_length_of_dead_zone));
             dead_zones[i].Add(start_point);
             dead_zones[i].Add(end_point);
-
-            Debug.Log(start_point + " " + end_point);
-            Debug.DrawLine(start_point, end_point);
         }
 
         int abs = 0;
@@ -107,7 +104,7 @@ public class Asteroid_spawner : MonoBehaviour
             int cell_z = Mathf.Clamp(Mathf.RoundToInt(biased_point.z / (spawn_range - spawn_offset) * (float)cell_density), 0, cell_density - 1);
             if (placement_matrix[cell_x][cell_y][cell_z] || in_dead_zone(dead_zones, offset_point))
             {
-                if (abs > 1000)
+                if (abs >= 1000)
                 {
                     Debug.LogError("Failed to spawn all asteroids in " + abs + " attempts. Asteroids spawned: " + i);
                     break;
