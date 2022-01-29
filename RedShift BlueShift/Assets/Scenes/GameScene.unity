@@ -454,30 +454,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 263058930, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 263058934, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: stopAction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263058934, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: lengthInSec
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 263058934, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: useRigidbodyForVelocity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 263058934, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 263058934, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4747987376125529107, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -736,10 +712,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4728200742582110095, guid: 398c5b5df0bdd244d86e4a0fd0f09ce7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728200742582110096, guid: 398c5b5df0bdd244d86e4a0fd0f09ce7, type: 3}
-      propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
