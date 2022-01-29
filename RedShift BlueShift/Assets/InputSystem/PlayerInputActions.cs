@@ -147,6 +147,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7a4c81b-880e-49ac-80a3-1626352f3332"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -171,6 +180,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5380ca6d-9e13-4488-8746-5a3c076f16b5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cec15150-c56a-46a8-a5ff-a57961d891d4"",
+                    ""path"": ""<Keyboard>/backspace"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""957938fd-ffd3-4a43-9da5-5e4102e805d8"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +227,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Utility = asset.FindActionMap("Utility", throwIfNotFound: true);
         m_Utility_StartGame = m_Utility.FindAction("StartGame", throwIfNotFound: true);
         m_Utility_Pause = m_Utility.FindAction("Pause", throwIfNotFound: true);
+        m_Utility_Quit = m_Utility.FindAction("Quit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -287,12 +330,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IUtilityActions m_UtilityActionsCallbackInterface;
     private readonly InputAction m_Utility_StartGame;
     private readonly InputAction m_Utility_Pause;
+    private readonly InputAction m_Utility_Quit;
     public struct UtilityActions
     {
         private @PlayerInputActions m_Wrapper;
         public UtilityActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @StartGame => m_Wrapper.m_Utility_StartGame;
         public InputAction @Pause => m_Wrapper.m_Utility_Pause;
+        public InputAction @Quit => m_Wrapper.m_Utility_Quit;
         public InputActionMap Get() { return m_Wrapper.m_Utility; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +353,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
+                @Quit.started -= m_Wrapper.m_UtilityActionsCallbackInterface.OnQuit;
+                @Quit.performed -= m_Wrapper.m_UtilityActionsCallbackInterface.OnQuit;
+                @Quit.canceled -= m_Wrapper.m_UtilityActionsCallbackInterface.OnQuit;
             }
             m_Wrapper.m_UtilityActionsCallbackInterface = instance;
             if (instance != null)
@@ -318,6 +366,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
             }
         }
     }
@@ -331,5 +382,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnStartGame(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }
