@@ -23,13 +23,14 @@ public class Asteroid_spawner : MonoBehaviour
     float max_length_of_dead_zone;
     [SerializeField]
     float radius_of_dead_zone = 4;
-    List<Object> blue_asteroids;
+    List<GameObject> blue_asteroids;
 
     [SerializeField]
     private int cell_density = 50;
     [SerializeField]
     private int num_of_asteroids = 1000;
 
+    float screenspace_x, screenspace_y;
 
     List<List<Vector3>> dead_zones = new List<List<Vector3>>();
 
@@ -63,7 +64,10 @@ public class Asteroid_spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        blue_asteroids = new List<Object>();
+        screenspace_y = Mathf.Tan(0.55f) * spawn_range;
+        screenspace_x = screenspace_y * Screen.width / Screen.height;
+
+        blue_asteroids = new List<GameObject>();
 
         // init placemet matrix
         List<bool> placement_matrix_row = new List<bool>();
@@ -126,12 +130,53 @@ public class Asteroid_spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject ba in blue_asteroids)
+        // recreate dead zones when they have been passed by player
+        for (int i = 0; i < dead_zones.Count; i++)
         {
-            if (ba.transform.position.z < player_transform.position.z)
+            if (dead_zones[i][1].z < player_transform.position.z)
             {
-                Vector3 offset_point = random_point_in_view();
-                ba.transform.position = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
+                Vector3 start_point = new Vector3(Random.Range(-screenspace_x * 0.7f, screenspace_x * 0.7f), Random.Range(-screenspace_y * 0.7f, screenspace_y * 0.7f),
+                    Random.Range(player_transform.position.z + 15, player_transform.position.z + 25));
+                Vector3 direction = new Vector3(Random.Range(0, 0.3f), Random.Range(0, 0.3f), 1);
+                Vector3 end_point = start_point + direction * (Random.Range(min_length_of_dead_zone, max_length_of_dead_zone));
+                dead_zones[i][0] = start_point;
+                dead_zones[i][1] = end_point;
+            }
+        }
+
+        int retry_count = 0;
+
+
+        // asteroid respawning
+        for (int i = 0; i < blue_asteroids.Count; i++)
+        {
+            if (blue_asteroids[i].transform.position.z < player_transform.position.z)
+            {
+                Vector3 offset_point = new Vector3(Random.Range(-screenspace_x, screenspace_x), Random.Range(-screenspace_y, screenspace_y), spawn_range);
+                Vector3 new_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
+
+                if (retry_count >= 50)
+                {
+                    Debug.LogError("Failed to respawn asteroid");
+                    break;
+                }
+                bool retry = false;
+                for (int j = 0; j < dead_zones.Count; j++)
+                {
+                    if (in_dead_zone(dead_zones, new_pos))
+                    {
+                        retry = true;
+                        break;
+                    }
+                }
+                if (retry)
+                {
+                    i--;
+                    retry_count++;
+                    continue;
+                }
+
+                blue_asteroids[i].transform.position = new_pos;
             }
         }
 
