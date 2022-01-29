@@ -41,18 +41,15 @@ public class Pause : MonoBehaviour
 
     public void Toggle(InputAction.CallbackContext context)
     {
-        Debug.Log("PauseToggle");
         if (isDown)
         {
             SetUp();
             Time.timeScale = 1;
-            Debug.Log("Up");
         }
         else
         {
             SetDown();
             Time.timeScale = 0;
-            Debug.Log("Down");
         }
     }
 }
