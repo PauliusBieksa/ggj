@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.SceneManagement;
-public class SceneLoader : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
 
     private PlayerInputActions playerInputActions;
@@ -14,6 +14,8 @@ public class SceneLoader : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Utility.StartGame.Enable();
         playerInputActions.Utility.StartGame.performed += LoadGame;
+        playerInputActions.Utility.Quit.Enable();
+        playerInputActions.Utility.Quit.performed += Quit;
     }
 
     // Update is called once per frame
@@ -22,13 +24,9 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
-    public void LoadPauseScreen()
+    public void Quit(InputAction.CallbackContext context)
     {
-
+        Application.Quit();
     }
 
-    public void UnloadPauseScreen()
-    {
-
-    }
 }
