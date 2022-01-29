@@ -28,7 +28,6 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         trans = gameObject.transform;
-        playerInput = GetComponent<PlayerInput>();
         playerInputActions = new PlayerInputActions();
         PlayerSpeed = SpeedClass.Slow;
 
