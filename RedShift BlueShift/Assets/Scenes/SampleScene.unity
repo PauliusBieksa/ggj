@@ -331,8 +331,12 @@ MonoBehaviour:
   blue_asteroid_prefab: {fileID: 4779841206618600900, guid: fec799cf8c0e58942b6edca6b9c2ade0, type: 3}
   red_asteroid_prefab: {fileID: 0}
   spawn_offset: 15
-  spawn_range: 75
+  spawn_range: 70
   player_transform: {fileID: 963194228}
+  num_of_dead_zones: 0
+  min_length_of_dead_zone: 30
+  max_length_of_dead_zone: 70
+  radius_of_dead_zone: 20
 --- !u!4 &1502267481
 Transform:
   m_ObjectHideFlags: 0
