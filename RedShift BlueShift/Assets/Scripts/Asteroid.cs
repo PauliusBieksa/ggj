@@ -32,21 +32,15 @@ public class Asteroid : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collide");
         CrashEffect();
     }
 
     void CrashEffect()
     {
-        Debug.Log("Crash");
         StartCoroutine("Shrink");
         rb.isKinematic = true;
         particles.Play();
         audioSource.Play(0);
-        if (audioSource == null)
-        {
-            print("die");
-        }
     }
 
     public void Reset()

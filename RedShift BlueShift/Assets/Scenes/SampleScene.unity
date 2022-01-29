@@ -325,11 +325,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1502267479}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad66667e49d68ad43bcd0354d19d952e, type: 3}
+  m_Script: {fileID: 11500000, guid: 54fd4ef426de5f24391d95d2ad0e1c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blue_asteroid_prefab: {fileID: 4779841206618600900, guid: fec799cf8c0e58942b6edca6b9c2ade0, type: 3}
-  red_asteroid_prefab: {fileID: 0}
+  blue_asteroid_prefab: {fileID: 4779841206618600900, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
+  red_asteroid_prefab: {fileID: 4779841206618600900, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
   spawn_offset: 15
   spawn_range: 70
   player_transform: {fileID: 963194228}

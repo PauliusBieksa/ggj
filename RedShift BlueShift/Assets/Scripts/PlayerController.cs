@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         playerInputActions.PlayerControls.SpeedToggle.performed += ToggleSpeed;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         Translate();
     }
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Strafe()
     {
         Vector2 strafeVector = playerInputActions.PlayerControls.Movement.ReadValue<Vector2>();
-        Vector3 diff = new Vector3(strafeVector.x, strafeVector.y, 0) * StrafeSpeed * Time.fixedDeltaTime;
+        Vector3 diff = new Vector3(strafeVector.x, strafeVector.y, 0) * StrafeSpeed * Time.deltaTime;
         Debug.Log(strafeVector + " " + diff);
         transform.Translate(diff);
     }
@@ -60,13 +60,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log(PlayerSpeed + " " + (int) PlayerSpeed);
 
         //set forward velocity
-        Vector3 pos = trans.position + trans.forward * (int) PlayerSpeed * Time.fixedDeltaTime;
+        Vector3 pos = trans.position + trans.forward * (int) PlayerSpeed * Time.deltaTime;
         trans.position = pos;
     }
 
     private void ToggleSpeed(InputAction.CallbackContext context)
     {
-        if (!context.started && context.action.name != "SpeedToggle") return;
+        if (!context.performed && context.action.name != "SpeedToggle") return;
 
         //check if penalised
         if (Time.time - collisionTime >= 2 && PlayerSpeed == SpeedClass.Penalty)
@@ -95,7 +95,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("colliding");
         CollisionEffects(collision);
     }
 
