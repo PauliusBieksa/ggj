@@ -65,10 +65,17 @@ public class Asteroid_spawner : MonoBehaviour
         return false;
     }
 
-    //bool is_out_of_bounds(Vector3 point)
-    //{
-    //    if (player_transform.position)
-    //}
+    bool is_out_of_bounds(Vector3 point)
+    {
+        float z_offset = point.z - player_transform.position.z;
+        if (z_offset < 0) return true;
+        float x_offset = Mathf.Tan(0.55f) * z_offset * Screen.width / Screen.height;
+        if (player_transform.position.x - point.x > x_offset) return true;
+        float y_offset = Mathf.Tan(0.55f) * z_offset;
+        if (player_transform.position.y - point.y > y_offset) return true;
+
+        return false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -165,12 +172,12 @@ public class Asteroid_spawner : MonoBehaviour
         int retry_count = 0;
 
 
-        // asteroid respawning
+        // blue asteroid respawning
         for (int i = 0; i < blue_asteroids.Count; i++)
         {
             if (blue_asteroids[i].transform.position.z < player_transform.position.z)
             {
-                Vector3 offset_point = new Vector3(Random.Range(-screenspace_x, screenspace_x), Random.Range(-screenspace_y, screenspace_y), spawn_range);
+                Vector3 offset_point = new Vector3(Random.Range(-screenspace_x, screenspace_x), Random.Range(-screenspace_y, screenspace_y), Random.Range(spawn_range - 8f, spawn_range));
                 Vector3 new_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
 
                 if (retry_count >= 50)
@@ -195,6 +202,70 @@ public class Asteroid_spawner : MonoBehaviour
                 }
 
                 blue_asteroids[i].transform.position = new_pos;
+            }
+        }
+        if (blue_asteroids.Count < num_of_blue_asteroids)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                Vector3 offset_point = new Vector3(Random.Range(-screenspace_x, screenspace_x), Random.Range(-screenspace_y, screenspace_y), Random.Range(spawn_range - 8f, spawn_range));
+                Vector3 new_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
+
+                if (retry_count >= 50)
+                {
+                    Debug.LogError("Failed to respawn asteroid");
+                    break;
+                }
+                bool retry = false;
+                for (int j = 0; j < dead_zones.Count; j++)
+                {
+                    if (in_dead_zone(dead_zones, new_pos))
+                    {
+                        retry = true;
+                        break;
+                    }
+                }
+                if (retry)
+                {
+                    i--;
+                    retry_count++;
+                    continue;
+                }
+                
+                blue_asteroids.Add(Instantiate(blue_asteroid_prefab, new_pos, Random.rotation));
+            }
+        }
+
+        // red asteroid respawning
+        for (int i = 0; i < red_asteroids.Count; i++)
+        {
+            if (is_out_of_bounds(red_asteroids[i].transform.position))
+            {
+                Vector3 offset_point = new Vector3(Random.Range(-screenspace_x, screenspace_x), Random.Range(-screenspace_y, screenspace_y), Random.Range(spawn_range - 8f, spawn_range));
+                Vector3 new_pos = new Vector3(player_transform.position.x + offset_point.x, player_transform.position.y + offset_point.y, player_transform.position.z + offset_point.z);
+
+                if (retry_count >= 50)
+                {
+                    Debug.LogError("Failed to respawn asteroid");
+                    break;
+                }
+                bool retry = false;
+                for (int j = 0; j < dead_zones.Count; j++)
+                {
+                    if (in_dead_zone(dead_zones, new_pos))
+                    {
+                        retry = true;
+                        break;
+                    }
+                }
+                if (retry)
+                {
+                    i--;
+                    retry_count++;
+                    continue;
+                }
+
+                red_asteroids[i].transform.position = new_pos;
             }
         }
 

@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blue_asteroid_prefab: {fileID: 4779841206618600900, guid: af1d2bf59c5398649b68a6585f88e94f, type: 3}
-  red_asteroid_prefab: {fileID: 0}
+  red_asteroid_prefab: {fileID: 3520824844035332145, guid: 3dcb95e2866c2e14e973f5b79c24538b, type: 3}
   spawn_offset: 15
   spawn_range: 70
   player_transform: {fileID: 1847331541}
@@ -444,7 +444,8 @@ MonoBehaviour:
   max_length_of_dead_zone: 60
   radius_of_dead_zone: 6
   cell_density: 40
-  num_of_asteroids: 500
+  num_of_blue_asteroids: 1000
+  num_of_red_asteroids: 200
 --- !u!1 &792760817
 GameObject:
   m_ObjectHideFlags: 0
