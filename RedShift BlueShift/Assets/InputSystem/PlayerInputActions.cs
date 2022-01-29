@@ -114,6 +114,54 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Utility"",
+            ""id"": ""02b262b8-d03f-48b1-bffb-a7810f7bfdcb"",
+            ""actions"": [
+                {
+                    ""name"": ""StartGame"",
+                    ""type"": ""Button"",
+                    ""id"": ""9b6465b2-15a1-4f25-bd54-425816fd9daf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e54505f6-04fe-4078-8703-0d5f131603c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""50ac5cfc-9224-415d-8e38-a8c8f199054f"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StartGame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c31d0d5-74d1-43f0-8add-befec7fa918b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -122,6 +170,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_SpeedToggle = m_PlayerControls.FindAction("SpeedToggle", throwIfNotFound: true);
+        // Utility
+        m_Utility = asset.FindActionMap("Utility", throwIfNotFound: true);
+        m_Utility_StartGame = m_Utility.FindAction("StartGame", throwIfNotFound: true);
+        m_Utility_Pause = m_Utility.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,9 +270,55 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // Utility
+    private readonly InputActionMap m_Utility;
+    private IUtilityActions m_UtilityActionsCallbackInterface;
+    private readonly InputAction m_Utility_StartGame;
+    private readonly InputAction m_Utility_Pause;
+    public struct UtilityActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public UtilityActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @StartGame => m_Wrapper.m_Utility_StartGame;
+        public InputAction @Pause => m_Wrapper.m_Utility_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_Utility; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UtilityActions set) { return set.Get(); }
+        public void SetCallbacks(IUtilityActions instance)
+        {
+            if (m_Wrapper.m_UtilityActionsCallbackInterface != null)
+            {
+                @StartGame.started -= m_Wrapper.m_UtilityActionsCallbackInterface.OnStartGame;
+                @StartGame.performed -= m_Wrapper.m_UtilityActionsCallbackInterface.OnStartGame;
+                @StartGame.canceled -= m_Wrapper.m_UtilityActionsCallbackInterface.OnStartGame;
+                @Pause.started -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_UtilityActionsCallbackInterface.OnPause;
+            }
+            m_Wrapper.m_UtilityActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @StartGame.started += instance.OnStartGame;
+                @StartGame.performed += instance.OnStartGame;
+                @StartGame.canceled += instance.OnStartGame;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+            }
+        }
+    }
+    public UtilityActions @Utility => new UtilityActions(this);
     public interface IPlayerControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSpeedToggle(InputAction.CallbackContext context);
+    }
+    public interface IUtilityActions
+    {
+        void OnStartGame(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
