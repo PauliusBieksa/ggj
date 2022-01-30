@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
         playerInputActions.Utility.Quit.performed += Quit;
     }
 
-    // Update is called once per frame
+
     private void LoadGame(InputAction.CallbackContext context)
     {
-        if (SceneManager.GetActiveScene().name == "EndScreen")
+        if (SceneManager.GetActiveScene().name == "StartScreen")
         {
             SceneManager.LoadScene("GameScene");
         }
