@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
@@ -15,9 +16,13 @@ public enum SpeedClass
 
 public class PlayerController : MonoBehaviour
 {
+
+    public float TargetDistance = 30;
     public SpeedClass PlayerSpeed = SpeedClass.Slow;
     public float StrafeSpeed = 5;
     public float CollisionCooldownTime;
+    public TMP_Text scoreText;
+    public ScoreManager sm;
 
     private PlayerInput playerInput;
     private PlayerInputActions playerInputActions;
@@ -39,6 +44,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Translate();
+        CheckWin();
     }
 
     private void Translate()
@@ -101,5 +107,15 @@ public class PlayerController : MonoBehaviour
     private void CollisionEffects(Collision collision)
     {
         collisionTime = Time.time;
+    }
+
+    private void CheckWin()
+    {
+        if (trans.position.z > TargetDistance)
+        {
+            GameManager.CurrentRunTime = Time.time;
+            GameManager.ScoreScreen();
+
+        }
     }
 }

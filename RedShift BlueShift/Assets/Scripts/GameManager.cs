@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    public static float CurrentRunTime;
+    public static List<float> BestRunTimes;
+
     private PlayerInputActions playerInputActions;
 
     // Start is called before the first frame update
@@ -26,8 +31,14 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("GameScene");
     }
 
+
     public void Quit(InputAction.CallbackContext context)
     {
         Application.Quit();
+    }
+
+    public static void ScoreScreen()
+    {
+        SceneManager.LoadScene("EndScreen");
     }
 }
