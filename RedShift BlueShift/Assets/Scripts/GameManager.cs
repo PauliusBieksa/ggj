@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static float CurrentRunTime;
     public static List<float> BestRunTimes;
 
-    private static PlayerInputActions playerInputActions;
+    private PlayerInputActions playerInputActions;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static IEnumerator DisableUtilityInput(float seconds)
+    public IEnumerator DisableUtilityInput(float seconds)
     {
         playerInputActions.Utility.Quit.Disable();
         yield return new WaitForSeconds(seconds);
