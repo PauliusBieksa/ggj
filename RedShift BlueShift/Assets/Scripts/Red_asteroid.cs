@@ -38,11 +38,11 @@ public class Red_asteroid : MonoBehaviour
 
         if (pc.PlayerSpeed == SpeedClass.Slow)
         {
-            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a - 0.003f * Time.deltaTime, 0.05f, 1f));
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a - 0.001f * Time.deltaTime, 0.1f, 1f));
         }
         else
         {
-            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a + 0.003f * Time.deltaTime, 0.05f, 1f));
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a + 0.001f * Time.deltaTime, 0.1f, 1f));
         }
     }
 
