@@ -32,16 +32,26 @@ public class PlayerController : MonoBehaviour
     {
         trans = gameObject.transform;
         playerInputActions = new PlayerInputActions();
-        PlayerSpeed = SpeedClass.Slow;
+        //PlayerSpeed = SpeedClass.Slow;
 
         playerInputActions.PlayerControls.SpeedToggle.Enable();
         playerInputActions.PlayerControls.Movement.Enable();
         playerInputActions.PlayerControls.SpeedToggle.performed += ToggleSpeed;
+
+        collisionTime = Time.time;
+        PlayerSpeed = SpeedClass.Penalty;
     }
 
     void Update()
     {
         Translate();
+
+        //check if penalised
+        if (Time.time - collisionTime >= CollisionCooldownTime && PlayerSpeed == SpeedClass.Penalty)
+        {
+            PlayerSpeed = SpeedClass.Slow;
+            Debug.Log("Recovered");
+        }
         CheckWin();
     }
 
@@ -72,13 +82,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!context.performed && context.action.name != "SpeedToggle") return;
 
-        //check if penalised
-        if (Time.time - collisionTime >= 2 && PlayerSpeed == SpeedClass.Penalty)
-        {
-            PlayerSpeed = SpeedClass.Slow;
-            Debug.Log("Recovered");
-        }
-
         //check for speed toggle
         switch (PlayerSpeed)
         {
@@ -97,14 +100,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        CollisionEffects(collision);
-    }
-
-    private void CollisionEffects(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
         collisionTime = Time.time;
+        PlayerSpeed = SpeedClass.Penalty;
     }
 
     private void CheckWin()
