@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         if (trans.position.z > TargetDistance)
         {
-            GameManager.CurrentRunTime = Time.time;
+            GameManager.CurrentRunTime = Time.timeSinceLevelLoad;
             GameManager.ScoreScreen();
 
         }

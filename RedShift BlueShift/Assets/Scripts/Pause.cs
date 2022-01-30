@@ -11,7 +11,7 @@ public class Pause : MonoBehaviour
     private RectTransform rt;
     private Vector3 downPos;
     private Vector3 upPos;
-    private bool isDown;
+    public static bool IsDown;
     private PlayerInputActions playerInputActions;
 
     void Awake()
@@ -30,18 +30,18 @@ public class Pause : MonoBehaviour
     public void SetDown()
     {
         rt.localPosition = downPos;
-        isDown = true;
+        Pause.IsDown = true;
     }
 
     public void SetUp()
     {
         rt.localPosition = upPos;
-        isDown = false;
+        Pause.IsDown = false;
     }
 
     public void Toggle(InputAction.CallbackContext context)
     {
-        if (isDown)
+        if (Pause.IsDown)
         {
             SetUp();
             Time.timeScale = 1;

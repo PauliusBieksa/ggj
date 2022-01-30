@@ -17,28 +17,48 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
+        DontDestroyOnLoad(gameObject);
         playerInputActions = new PlayerInputActions();
         playerInputActions.Utility.StartGame.Enable();
         playerInputActions.Utility.StartGame.performed += LoadGame;
+        playerInputActions.Utility.StartGame.performed += Restart;
         playerInputActions.Utility.Quit.Enable();
         playerInputActions.Utility.Quit.performed += Quit;
     }
 
-    // Update is called once per frame
+
     private void LoadGame(InputAction.CallbackContext context)
     {
-        if (SceneManager.GetActiveScene().name != "GameScene")
+        if (SceneManager.GetActiveScene().name == "StartScreen")
+        {
             SceneManager.LoadScene("GameScene");
+        }
     }
 
 
     public void Quit(InputAction.CallbackContext context)
     {
-        Application.Quit();
+        if(Pause.IsDown)
+            Application.Quit();
     }
 
     public static void ScoreScreen()
     {
         SceneManager.LoadScene("EndScreen");
+    }
+
+    public static void Restart(InputAction.CallbackContext context)
+    {
+        if (SceneManager.GetActiveScene().name == "EndScreen")
+        {
+            SceneManager.LoadScene("StartScreen");
+        }
+    }
+
+    public IEnumerator DisableUtilityInput(float seconds)
+    {
+        playerInputActions.Utility.Quit.Disable();
+        yield return new WaitForSeconds(seconds);
+        playerInputActions.Utility.Quit.Enable();
     }
 }

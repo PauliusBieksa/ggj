@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
 
     public void FixedUpdate()
     {
-        TimeSpan runTime = TimeSpan.FromSeconds(Time.time);
+        TimeSpan runTime = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
         display.text = runTime.ToString("mm':'ss':'fff");
     }
 
