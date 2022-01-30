@@ -17,9 +17,14 @@ public class Red_asteroid : MonoBehaviour
     [SerializeField]
     private Material asteroid_mat;
 
+    private Vector3 previousPosition;
+    private Transform pos;
+
     // Start is called before the first frame update
     void Start()
     {
+        pos = gameObject.transform;
+
         axisOfRotation = Random.insideUnitSphere * 2;
         pc = GameObject.Find("Player").GetComponent<PlayerController>();
 
@@ -33,6 +38,11 @@ public class Red_asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Mathf.Abs(previousPosition.z - pos.position.z) > 20)
+        {
+            Reset();
+        }
+
         transform.Rotate(axisOfRotation);
         transform.position += velocity;
 
@@ -44,6 +54,8 @@ public class Red_asteroid : MonoBehaviour
         {
             asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a + 0.001f * Time.deltaTime, 0.1f, 1f));
         }
+
+        previousPosition = pos.position;
     }
 
     private void OnTriggerEnter(Collider other)

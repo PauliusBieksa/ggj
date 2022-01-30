@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 141316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f5bd51f1460f0c468a271156521e061, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fd822d8f9ad2ff4d918184f31c13339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   asteroid_mat: {fileID: 2100000, guid: 0e47fa6aa96cfd044b946d9923d4a47a, type: 2}
