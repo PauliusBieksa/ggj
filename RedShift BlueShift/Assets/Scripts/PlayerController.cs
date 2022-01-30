@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (!context.performed && context.action.name != "SpeedToggle") return;
 
         //check if penalised
-        if (Time.time - collisionTime >= 2 && PlayerSpeed == SpeedClass.Penalty)
+        if (Time.timeSinceLevelLoad - collisionTime >= 2 && PlayerSpeed == SpeedClass.Penalty)
         {
             PlayerSpeed = SpeedClass.Slow;
             Debug.Log("Recovered");
@@ -104,14 +104,14 @@ public class PlayerController : MonoBehaviour
 
     private void CollisionEffects(Collision collision)
     {
-        collisionTime = Time.time;
+        collisionTime = Time.timeSinceLevelLoad;
     }
 
     private void CheckWin()
     {
         if (trans.position.z > TargetDistance)
         {
-            GameManager.CurrentRunTime = Time.time;
+            GameManager.CurrentRunTime = Time.timeSinceLevelLoad;
             GameManager.ScoreScreen();
 
         }
