@@ -23,7 +23,7 @@ public class Pause : MonoBehaviour
         //get the recttransform of the sliding panel
         rt = GetComponent<RectTransform>();
         downPos = rt.localPosition;
-        upPos = downPos + new Vector3(0, Pause.ScreenHeight, 0);
+        upPos = downPos + new Vector3(0, Pause.ScreenHeight * 2, 0);
         SetUp();
     }
 
