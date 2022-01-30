@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.Utility.StartGame.Enable();
         playerInputActions.Utility.StartGame.performed += LoadGame;
+        playerInputActions.Utility.StartGame.performed += Restart;
         playerInputActions.Utility.Quit.Enable();
         playerInputActions.Utility.Quit.performed += Quit;
     }
@@ -28,8 +29,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void LoadGame(InputAction.CallbackContext context)
     {
-        if (SceneManager.GetActiveScene().name != "GameScene")
+        if (SceneManager.GetActiveScene().name == "EndScreen")
+        {
             SceneManager.LoadScene("GameScene");
+        }
     }
 
 
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("EndScreen");
     }
 
-    public static void Restart()
+    public static void Restart(InputAction.CallbackContext context)
     {
         if (SceneManager.GetActiveScene().name == "EndScreen")
         {
@@ -52,10 +55,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static IEnumerator DisableUitilitInputForSeconds()
+    public static IEnumerator DisableUtilityInput(float seconds)
     {
         playerInputActions.Utility.Quit.Disable();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(seconds);
         playerInputActions.Utility.Quit.Enable();
     }
 }
