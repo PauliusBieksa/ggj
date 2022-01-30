@@ -102,7 +102,7 @@ public class Asteroid_spawner : MonoBehaviour
             dead_zones[i] = new List<Vector3>();
             //Vector3 start_point = random_point_in_view(1.0f, 0.2f);
             Vector3 start_point = new Vector3(Random.Range(-xy_range * 0.7f, xy_range * 0.7f), Random.Range(-xy_range * 0.7f, xy_range * 0.7f), Random.Range(15, 25));
-            Vector3 direction = new Vector3(Random.Range(0, 0.3f), Random.Range(0, 0.3f), 1);
+            Vector3 direction = new Vector3(Random.Range(0, 0.4f), Random.Range(0, 0.4f), 1);
             Vector3 end_point = new Vector3();
             end_point = start_point + direction * (Random.Range(min_length_of_dead_zone, max_length_of_dead_zone));
             dead_zones[i].Add(start_point);
@@ -127,7 +127,7 @@ public class Asteroid_spawner : MonoBehaviour
             {
                 if (abs >= 1000)
                 {
-                    Debug.LogError("Failed to spawn all asteroids in " + abs + " attempts. Asteroids spawned: " + i);
+                    Debug.LogWarning("Failed to spawn all asteroids in " + abs + " attempts. Asteroids spawned: " + i);
                     break;
                 }
                 i--;
@@ -162,7 +162,7 @@ public class Asteroid_spawner : MonoBehaviour
             {
                 Vector3 start_point = new Vector3(Random.Range(-screenspace_x * 0.7f, screenspace_x * 0.7f), Random.Range(-screenspace_y * 0.7f, screenspace_y * 0.7f),
                     Random.Range(player_transform.position.z + 15, player_transform.position.z + 25));
-                Vector3 direction = new Vector3(Random.Range(0, 0.3f), Random.Range(0, 0.3f), 1);
+                Vector3 direction = new Vector3(Random.Range(0, 0.4f), Random.Range(0, 0.4f), 1);
                 Vector3 end_point = start_point + direction * (Random.Range(min_length_of_dead_zone, max_length_of_dead_zone));
                 dead_zones[i][0] = start_point;
                 dead_zones[i][1] = end_point;
@@ -182,7 +182,7 @@ public class Asteroid_spawner : MonoBehaviour
 
                 if (retry_count >= 50)
                 {
-                    Debug.LogError("Failed to respawn asteroid");
+                    Debug.LogWarning("Failed to respawn asteroid");
                     break;
                 }
                 bool retry = false;
@@ -233,6 +233,7 @@ public class Asteroid_spawner : MonoBehaviour
                 }
                 
                 blue_asteroids.Add(Instantiate(blue_asteroid_prefab, new_pos, Random.rotation));
+                if (blue_asteroids.Count == num_of_blue_asteroids) Debug.LogWarning("All asteroids spawned");
             }
         }
 

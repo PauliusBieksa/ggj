@@ -13,15 +13,21 @@ public class Red_asteroid : MonoBehaviour
     [SerializeField]
     private Vector3 velocity = new Vector3();
 
+    private PlayerController pc;
+    [SerializeField]
+    private Material asteroid_mat;
+
     // Start is called before the first frame update
     void Start()
     {
         axisOfRotation = Random.insideUnitSphere * 2;
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
 
         originalSize = transform.localScale;
         rb = GetComponent<Rigidbody>();
         particles = GetComponentInChildren<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
+        velocity = new Vector3(velocity.x * Random.Range(0.6f, 1.4f), velocity.y * Random.Range(0.6f, 1.4f), 0f);
     }
 
     // Update is called once per frame
@@ -29,6 +35,15 @@ public class Red_asteroid : MonoBehaviour
     {
         transform.Rotate(axisOfRotation);
         transform.position += velocity;
+
+        if (pc.PlayerSpeed == SpeedClass.Slow)
+        {
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a - 0.003f * Time.deltaTime, 0.05f, 1f));
+        }
+        else
+        {
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a + 0.003f * Time.deltaTime, 0.05f, 1f));
+        }
     }
 
     private void OnTriggerEnter(Collider other)

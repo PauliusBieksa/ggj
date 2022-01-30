@@ -12,10 +12,16 @@ public class Blue_asteroid : MonoBehaviour
     private ParticleSystem particles;
     private AudioSource audioSource;
 
+    private PlayerController pc;
+    [SerializeField]
+    private Material asteroid_mat;
+
     // Start is called before the first frame update
     void Start()
     {
         axisOfRotation = Random.insideUnitSphere * 2;
+        pc = GameObject.Find("Player").GetComponent<PlayerController>();
+        //asteroid_mat = GetComponent<Material>();
 
         originalSize = transform.localScale;
         rb = GetComponent<Rigidbody>();
@@ -27,6 +33,15 @@ public class Blue_asteroid : MonoBehaviour
     void Update()
     {
         transform.Rotate(axisOfRotation);
+
+        if (pc.PlayerSpeed == SpeedClass.Fast)
+        {
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a - 0.003f * Time.deltaTime, 0.05f, 1f));
+        }
+        else
+        {
+            asteroid_mat.color = new Color(asteroid_mat.color.r, asteroid_mat.color.g, asteroid_mat.color.b, Mathf.Clamp(asteroid_mat.color.a + 0.003f * Time.deltaTime, 0.05f, 1f));
+        }
     }
 
     private void OnTriggerEnter(Collider other)
