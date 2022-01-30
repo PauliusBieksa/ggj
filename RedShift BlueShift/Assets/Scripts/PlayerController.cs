@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
     public SpeedClass PlayerSpeed = SpeedClass.Slow;
     public float StrafeSpeed = 5;
     public float CollisionCooldownTime;
-    public TMP_Text scoreText;
-    public ScoreManager sm;
 
     private PlayerInput playerInput;
     private PlayerInputActions playerInputActions;
