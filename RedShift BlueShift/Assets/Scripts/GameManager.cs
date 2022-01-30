@@ -12,11 +12,12 @@ public class GameManager : MonoBehaviour
     public static float CurrentRunTime;
     public static List<float> BestRunTimes;
 
-    private PlayerInputActions playerInputActions;
+    private static PlayerInputActions playerInputActions;
 
     // Start is called before the first frame update
     void OnEnable()
     {
+        DontDestroyOnLoad(gameObject);
         playerInputActions = new PlayerInputActions();
         playerInputActions.Utility.StartGame.Enable();
         playerInputActions.Utility.StartGame.performed += LoadGame;
@@ -49,5 +50,12 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("StartScreen");
         }
+    }
+
+    public static IEnumerator DisableUitilitInputForSeconds()
+    {
+        playerInputActions.Utility.Quit.Disable();
+        yield return new WaitForSeconds(1);
+        playerInputActions.Utility.Quit.Enable();
     }
 }

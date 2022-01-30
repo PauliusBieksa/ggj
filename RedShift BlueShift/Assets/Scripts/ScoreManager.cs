@@ -16,6 +16,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
+
         TimeSpan runTime = TimeSpan.FromSeconds(GameManager.CurrentRunTime);
         string scoreText = runTime.ToString("mm':'ss':'fff");
         currentScoreText.text = $"Your Score\n{scoreText}";
