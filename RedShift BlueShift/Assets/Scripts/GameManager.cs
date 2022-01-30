@@ -34,11 +34,20 @@ public class GameManager : MonoBehaviour
 
     public void Quit(InputAction.CallbackContext context)
     {
-        Application.Quit();
+        if(Pause.IsDown)
+            Application.Quit();
     }
 
     public static void ScoreScreen()
     {
         SceneManager.LoadScene("EndScreen");
+    }
+
+    public static void Restart()
+    {
+        if (SceneManager.GetActiveScene().name == "EndScreen")
+        {
+            SceneManager.LoadScene("StartScreen");
+        }
     }
 }
