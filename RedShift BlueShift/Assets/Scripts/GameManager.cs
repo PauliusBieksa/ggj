@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
         playerInputActions.Utility.StartGame.performed += Restart;
         playerInputActions.Utility.Quit.Enable();
         playerInputActions.Utility.Quit.performed += Quit;
+
+        if (GameObject.Find("GameManager") != gameObject)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -42,12 +47,13 @@ public class GameManager : MonoBehaviour
             Application.Quit();
     }
 
-    public static void ScoreScreen()
+    public void ScoreScreen()
     {
+        StartCoroutine(DisableUtilityInput(3));
         SceneManager.LoadScene("EndScreen");
     }
 
-    public static void Restart(InputAction.CallbackContext context)
+    public void Restart(InputAction.CallbackContext context)
     {
         if (SceneManager.GetActiveScene().name == "EndScreen")
         {
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static IEnumerator DisableUtilityInput(float seconds)
+    public IEnumerator DisableUtilityInput(float seconds)
     {
         playerInputActions.Utility.Quit.Disable();
         yield return new WaitForSeconds(seconds);

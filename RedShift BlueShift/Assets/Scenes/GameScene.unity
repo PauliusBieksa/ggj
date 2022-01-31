@@ -874,8 +874,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3017541976847708292, guid: f6269f3658b866148bed618051902c71, type: 3}
+      propertyPath: StrafeSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017541976847708292, guid: f6269f3658b866148bed618051902c71, type: 3}
       propertyPath: TargetDistance
-      value: 200
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3017541976847708294, guid: f6269f3658b866148bed618051902c71, type: 3}
       propertyPath: m_Constraints

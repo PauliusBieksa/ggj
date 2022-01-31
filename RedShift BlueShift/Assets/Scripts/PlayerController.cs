@@ -9,9 +9,9 @@ using UnityEngine.InputSystem.Utilities;
 
 public enum SpeedClass
 {
-    Slow = 5,
-    Fast = 10,
-    Penalty = 2
+    Slow = 20,
+    Fast = 40,
+    Penalty = 10
 };
 
 public class PlayerController : MonoBehaviour
@@ -26,10 +26,12 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Transform trans;
     private float collisionTime;
+    private GameManager gm;
 
 
     void OnEnable()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         trans = gameObject.transform;
         playerInputActions = new PlayerInputActions();
         //PlayerSpeed = SpeedClass.Slow;
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if (trans.position.z > TargetDistance)
         {
             GameManager.CurrentRunTime = Time.timeSinceLevelLoad;
-            GameManager.ScoreScreen();
+            gm.ScoreScreen();
 
         }
     }
